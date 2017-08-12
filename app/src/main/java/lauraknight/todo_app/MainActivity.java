@@ -34,12 +34,20 @@ public class MainActivity extends AppCompatActivity {
         setupListViewListener();
     }
 
+    @Override
+    public void onRestart() {
+        super.onRestart();
+
+        readItems();
+        todosAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, todos);
+        listViewTodos.setAdapter(todosAdapter);
+    }
+
     private void setupListViewListener() {
-        listViewTodos.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        listViewTodos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
            @Override
-            public boolean onItemLongClick(AdapterView<?> adapter, View todo, int pos, long id) {
+            public void onItemClick(AdapterView<?> adapter, View todo, int pos, long id) {
                openEdit(pos);
-               return true;
            }
         });
     }
